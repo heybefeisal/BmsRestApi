@@ -2,9 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BmsRestApi.Database;
+using BmsRestApi.Repositories;
+using BmsRestApi.Repositories.Implementations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,6 +29,11 @@ namespace BmsRestApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDbContext<BmsDbContext>(optionsAction: options => options.UseSqlite(Configuration["Data:BmsApi:ConnectionString"]));
+            services.AddTransient<IBrandRepository, BrandRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<IProductRepository, ProductRepository>(); 
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
