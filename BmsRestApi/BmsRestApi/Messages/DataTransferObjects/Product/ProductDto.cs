@@ -1,9 +1,11 @@
 ﻿using BmsRestApi.Models.Product;
+using System;
 
 namespace BmsRestApi.Messages.DataTransferObjects.Product
 {
     public class ProductDto
     {
+        public long Id { get; set; }
         public string Name { get; set; }
         public string Slug { get; set; }
         public string Description { get; set; }
@@ -23,5 +25,9 @@ namespace BmsRestApi.Messages.DataTransferObjects.Product
         public long BrandId { get; set; }
         public Brand Brand { get; set; }
         public ProductStatus ProductStatus { get; set; }
+
+        public DateTimeOffset CreateDate { get; set; }
+        public DateTimeOffset ModifiedDate { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }
