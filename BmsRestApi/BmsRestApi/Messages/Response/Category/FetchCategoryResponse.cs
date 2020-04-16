@@ -10,6 +10,6 @@ namespace BmsRestApi.Messages.Response.Category
         public bool HasNextPages { get; set; }
         public int CurrentPage { get; set; }
         public int[] Pages { get; set; }
-        public IEnumerable<CategoryDto> Brands { get; set; } 
+        public IEnumerable<CategoryDto> Categories { get; set; } 
     }
 }

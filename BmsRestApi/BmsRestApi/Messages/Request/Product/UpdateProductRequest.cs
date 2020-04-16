@@ -9,6 +9,6 @@ namespace BmsRestApi.Messages.Request.Product
     public class UpdateProductRequest
     {
         public int Id { get; set; }
-        public ProductDto Brand { get; set; }
+        public ProductDto Products { get; set; }
     }
 }

@@ -4,6 +4,6 @@ namespace BmsRestApi.Messages.Request.Category
 {
     public class CreateCategoryRequest
     {
-        public CategoryDto Brand { get; set; }
+        public CategoryDto Category { get; set; }
     }
 }
