@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using BmsRestApi.Database;
 using BmsRestApi.Repositories;
 using BmsRestApi.Repositories.Implementations;
+using BmsRestApi.Services;
+using BmsRestApi.Services.Implementations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -32,7 +34,12 @@ namespace BmsRestApi
             services.AddDbContext<BmsDbContext>(optionsAction: options => options.UseSqlite(Configuration["Data:BmsApi:ConnectionString"]));
             services.AddTransient<IBrandRepository, BrandRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
-            services.AddTransient<IProductRepository, ProductRepository>(); 
+            services.AddTransient<IProductRepository, ProductRepository>();
+
+            services.AddTransient<IBrandService, BrandService>();
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<ICatalogueService, CatalogueService>();
 
         }
 

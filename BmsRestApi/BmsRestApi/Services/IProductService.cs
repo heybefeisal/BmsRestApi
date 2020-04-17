@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BmsRestApi.Services
 {
-    interface IProductService
+    public interface IProductService
     {
         CreateProductResponse SaveProduct(CreateProductRequest createProductRequest);
         UpdateProductResponse EditProduct(UpdateProductRequest updateProductRequest);

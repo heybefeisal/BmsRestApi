@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BmsRestApi.Services
 {
-    interface IBrandService
+    public interface IBrandService
     {
         CreateBrandResponse SaveBrand(CreateBrandRequest brandRequest);
         UpdateBrandResponse EditBrand(UpdateBrandRequest updateBrandRequest);

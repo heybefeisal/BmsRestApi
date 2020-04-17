@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BmsRestApi.Services
 {
-    interface ICategoryService
+   public interface ICategoryService
     {
         CreateCategoryResponse SaveCategory(CreateCategoryRequest createCategoryRequest);
         UpdateCategoryResponse EditCategory(UpdateCategoryRequest updateCategoryRequest);
