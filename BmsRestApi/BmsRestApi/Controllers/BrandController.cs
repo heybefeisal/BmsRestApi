@@ -49,7 +49,7 @@ namespace BmsRestApi.Controllers
             return updateBrandResponse;
         }
 
-        [HttpDelete(template:"{id")] // delete a brand
+        [HttpDelete(template:"{id}")] // delete a brand
         public ActionResult<DeleteBrandResponse> DeleteBrand(long id)
         {
             var deleteBrandRequest = new DeleteBrandRequest

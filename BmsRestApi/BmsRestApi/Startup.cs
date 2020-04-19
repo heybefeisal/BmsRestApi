@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 
 namespace BmsRestApi
 {
@@ -23,6 +24,7 @@ namespace BmsRestApi
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            
         }
 
         public IConfiguration Configuration { get; }
@@ -31,7 +33,13 @@ namespace BmsRestApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<BmsDbContext>(optionsAction: options => options.UseSqlite(Configuration["Data:BmsApi:ConnectionString"]));
+            services.AddAuthentication();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Building Materials E-Store", Version = "v1" });
+            });
+            services.AddDbContext<BmsDbContext>(options => options.UseSqlite(Configuration["Data:BmsApi:ConnectionString"]));
+
             services.AddTransient<IBrandRepository, BrandRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
@@ -51,7 +59,19 @@ namespace BmsRestApi
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseSession();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Building Materials E-Store V1");
+            });
+
+
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
