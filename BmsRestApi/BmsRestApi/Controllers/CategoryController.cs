@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BmsRestApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("v1/[controller]")]
     [ApiController]
     public class CategoryController : ControllerBase
     {
@@ -54,9 +54,13 @@ namespace BmsRestApi.Controllers
             return updateCategoryResponse;
         }
 
-        [HttpDelete()] // delete a category
-        public ActionResult<DeleteCategoryResponse> DeleteCategory(DeleteCategoryRequest deleteCategoryRequest)
+        [HttpDelete(template: "{id}")] // delete a category
+        public ActionResult<DeleteCategoryResponse> DeleteCategory(long id)
         {
+            var deleteCategoryRequest = new DeleteCategoryRequest
+            {
+                Id = id
+            };
             var deleteCategoryResponse = _categoryService.DeleteCategory(deleteCategoryRequest);
             return deleteCategoryResponse;
         }

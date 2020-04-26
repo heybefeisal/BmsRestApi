@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using BmsRestApi.Database;
 using BmsRestApi.Repositories;
@@ -33,21 +35,31 @@ namespace BmsRestApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddAuthentication();
-            services.AddSwaggerGen(c =>
+            //services.AddAuthentication();
+            /*services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Building Materials E-Store", Version = "v1" });
-            });
+            });*/
             services.AddDbContext<BmsDbContext>(options => options.UseSqlite(Configuration["Data:BmsApi:ConnectionString"]));
 
-            services.AddTransient<IBrandRepository, BrandRepository>();
-            services.AddTransient<ICategoryRepository, CategoryRepository>();
-            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddScoped<IBrandRepository, BrandRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
 
-            services.AddTransient<IBrandService, BrandService>();
-            services.AddTransient<ICategoryService, CategoryService>();
-            services.AddTransient<IProductService, ProductService>();
-            services.AddTransient<ICatalogueService, CatalogueService>();
+            services.AddScoped<IBrandService, BrandService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICatalogueService, CatalogueService>();
+
+            services.AddSwaggerGen(c =>
+            {
+                
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "BMS Api", Version = "0.0.1" });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
 
         }
 
@@ -59,7 +71,7 @@ namespace BmsRestApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseSession();
+            // app.UseSession(); 
 
             app.UseSwagger();
 
@@ -69,12 +81,11 @@ namespace BmsRestApi
             });
 
 
+            //app.UseAuthentication();
+
+            //app.UseAuthorization();
+
             app.UseRouting();
-
-            app.UseAuthentication();
-
-            app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

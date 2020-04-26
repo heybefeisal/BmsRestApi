@@ -43,7 +43,6 @@ namespace BmsRestApi.Repositories.Implementations
         public void DeleteBrand(Brand brand)
         {
             _context.Brands.Remove(brand);
-            _context.Brands.Remove(brand);
             _context.SaveChanges();
         }
     }

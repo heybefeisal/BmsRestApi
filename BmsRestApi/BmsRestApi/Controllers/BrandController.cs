@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BmsRestApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("v1/[controller]")]
     [ApiController]
     public class BrandController : ControllerBase
     {

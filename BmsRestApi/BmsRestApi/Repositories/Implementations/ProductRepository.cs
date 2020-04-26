@@ -46,7 +46,6 @@ namespace BmsRestApi.Repositories.Implementations
         public void DeleteProduct(Product product)
         {
             _context.Products.Remove(product);
-            _context.Products.Remove(product);
             _context.SaveChanges();
         }
     }

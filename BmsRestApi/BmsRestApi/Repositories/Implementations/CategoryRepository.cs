@@ -43,7 +43,6 @@ namespace BmsRestApi.Repositories.Implementations
         public void DeleteCategory(Category category)
         {
             _context.Categories.Remove(category);
-            _context.Categories.Remove(category);
             _context.SaveChanges();
         }
     }
